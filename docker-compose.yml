@@ -1,0 +1,23 @@
+git:
+  image: bitnami/git:latest
+  container_name: git-container
+  expose:  
+    - 9001
+
+go:    
+  build: ./go/
+  container_name: go-container
+  expose:  
+    - 9000 
+  volumes_from:  
+    - app-data 
+  links:  
+    - git
+
+app-data:    
+  image: golang:1.18  
+  container_name: app-data-container  
+  volumes:  
+    - ./src:/src/ 
+  command: "true"  
+
